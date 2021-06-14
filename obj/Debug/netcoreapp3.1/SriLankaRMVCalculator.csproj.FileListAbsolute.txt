@@ -1,0 +1,15 @@
+C:\Users\fazil\source\repos\SriLankaRMVCalculator\bin\Debug\netcoreapp3.1\SriLankaRMVCalculator.exe
+C:\Users\fazil\source\repos\SriLankaRMVCalculator\bin\Debug\netcoreapp3.1\SriLankaRMVCalculator.deps.json
+C:\Users\fazil\source\repos\SriLankaRMVCalculator\bin\Debug\netcoreapp3.1\SriLankaRMVCalculator.runtimeconfig.json
+C:\Users\fazil\source\repos\SriLankaRMVCalculator\bin\Debug\netcoreapp3.1\SriLankaRMVCalculator.runtimeconfig.dev.json
+C:\Users\fazil\source\repos\SriLankaRMVCalculator\bin\Debug\netcoreapp3.1\SriLankaRMVCalculator.dll
+C:\Users\fazil\source\repos\SriLankaRMVCalculator\bin\Debug\netcoreapp3.1\SriLankaRMVCalculator.pdb
+C:\Users\fazil\source\repos\SriLankaRMVCalculator\obj\Debug\netcoreapp3.1\SriLankaRMVCalculator.csproj.GenerateResource.cache
+C:\Users\fazil\source\repos\SriLankaRMVCalculator\obj\Debug\netcoreapp3.1\SriLankaRMVCalculator.AssemblyInfoInputs.cache
+C:\Users\fazil\source\repos\SriLankaRMVCalculator\obj\Debug\netcoreapp3.1\SriLankaRMVCalculator.AssemblyInfo.cs
+C:\Users\fazil\source\repos\SriLankaRMVCalculator\obj\Debug\netcoreapp3.1\SriLankaRMVCalculator.csproj.CoreCompileInputs.cache
+C:\Users\fazil\source\repos\SriLankaRMVCalculator\obj\Debug\netcoreapp3.1\SriLankaRMVCalculator.dll
+C:\Users\fazil\source\repos\SriLankaRMVCalculator\obj\Debug\netcoreapp3.1\SriLankaRMVCalculator.pdb
+C:\Users\fazil\source\repos\SriLankaRMVCalculator\obj\Debug\netcoreapp3.1\SriLankaRMVCalculator.genruntimeconfig.cache
+C:\Users\fazil\source\repos\SriLankaRMVCalculator\obj\Debug\netcoreapp3.1\SriLankaRMVCalculator.Properties.Resources.resources
+C:\Users\fazil\source\repos\SriLankaRMVCalculator\obj\Debug\netcoreapp3.1\SriLankaRMVCalculator.RMVMain.resources
