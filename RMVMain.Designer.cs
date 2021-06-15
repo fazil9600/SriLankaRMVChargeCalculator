@@ -226,6 +226,7 @@ namespace SriLankaRMVCalculator
             this.chb_is_absolute_ownership.TabIndex = 35;
             this.chb_is_absolute_ownership.Text = "Is Absoulute Ownership";
             this.chb_is_absolute_ownership.UseVisualStyleBackColor = true;
+            this.chb_is_absolute_ownership.CheckedChanged += new System.EventHandler(this.IsAbsoluteOwnerShipChanged);
             // 
             // tb_print_screen
             // 
@@ -241,6 +242,7 @@ namespace SriLankaRMVCalculator
             this.tb_no_of_transfers.Name = "tb_no_of_transfers";
             this.tb_no_of_transfers.Size = new System.Drawing.Size(200, 23);
             this.tb_no_of_transfers.TabIndex = 33;
+            this.tb_no_of_transfers.Text = "0";
             // 
             // tb_no_of_prev_owners
             // 
@@ -248,6 +250,7 @@ namespace SriLankaRMVCalculator
             this.tb_no_of_prev_owners.Name = "tb_no_of_prev_owners";
             this.tb_no_of_prev_owners.Size = new System.Drawing.Size(200, 23);
             this.tb_no_of_prev_owners.TabIndex = 32;
+            this.tb_no_of_prev_owners.Text = "0";
             // 
             // dp_CR_last_printed_date
             // 
