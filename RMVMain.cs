@@ -62,6 +62,35 @@ namespace SriLankaRMVCalculator
                 return false;
             }
         }
+
+        public bool IsTransferBeforeFiveYears()
+        {
+
+
+            DateTime d1 = DateTime.Now.Date;
+            DateTime d2 = dp_CR_first_reg_date.Value.Date;
+
+            TimeSpan ts = d1 - d2;
+
+            int days = ts.Days;
+            int daysPerYear = 365;
+            int noOfYears = 5;
+            int totalDaysToCalculate = daysPerYear * noOfYears;
+
+
+
+            if (days >= totalDaysToCalculate)
+            {
+                return true;
+            }
+            else
+            {
+                return false;
+            }
+        }
+
+
+
         public class Utilities
         {
 
@@ -101,9 +130,11 @@ namespace SriLankaRMVCalculator
 
         private void RMVMain_Load(object sender, EventArgs e)
         {
+            //Restric the user to select future dates in below datepickers
             dp_CR_last_printed_date.MaxDate = DateTime.Now;
             dp_CR_first_reg_date.MaxDate = DateTime.Now;
 
+            //setting default value as  for no of transfers
 
         }
 
@@ -173,15 +204,22 @@ namespace SriLankaRMVCalculator
         double isDuplicatedCRMotorCoach = 10000.00;
         double isDuplicatedCRMotorBus = 10000.00;
 
-
-
-
-
+        int noOfPreOwnersForTax = 0;
 
 
         double transferSaleTax = 3000.00;
 
         double isPerTransferCharge = 3750.00;
+        double isPerTransferChargeMotorBus = 3750.00;
+        double isPerTransferChargeMotorLorry = 3750.00;
+        double isPerTransferChargeDPVehicle = 3750.00;
+        double isPerTransferChargeMotorTractor = 2250.00;
+        double isPerTransferChargeMotorThreeWheeler = 1150.00;
+
+
+
+
+
         double isWHT = 1000.00;
 
         double totalRMV;
@@ -201,7 +239,6 @@ namespace SriLankaRMVCalculator
 
             try
             {
-
                 foreach (var control in this.gb_checkbox_charges.Controls)
                 {
                     if (control is CheckBox)
@@ -230,9 +267,13 @@ namespace SriLankaRMVCalculator
                                 {
                                     total = total + isDuplicatedCR;
                                 }
-                                else if (cb_vehicle_category.Text == "Motor Coach")
+                                else if (cb_vehicle_category.Text == "Motor Bus")
                                 {
-                                    total = total + isDuplicatedCRMotorCoach;
+                                    total = total + isDuplicatedCRMotorBus;
+                                }
+                                else if (cb_vehicle_category.Text == "Dual Purpose Vehicle")
+                                {
+                                    total = total + isDuplicatedCRDualPurpose;
                                 }
                             }
                             else if (((CheckBox)control).Name == "chb_is_one_day_service")
@@ -252,6 +293,7 @@ namespace SriLankaRMVCalculator
 
                     }
                 }
+
                 //Calculating Six Month Not Completed Fee
                 bool valueadded = IsSixMonthCompleted();
                 if (!valueadded)
@@ -259,10 +301,6 @@ namespace SriLankaRMVCalculator
                     if (cb_vehicle_category.Text == "Motor Car")
                     {
                         total = total + sixMonthNotCompletedFeeMotorCar;
-                    }
-                    else if (cb_vehicle_category.Text == "Motor Coach")
-                    {
-                        total = total + sixMonthNotCompletedFeeMotorCoach;
                     }
                     else if (cb_vehicle_category.Text == "Motor Bus")
                     {
@@ -279,11 +317,57 @@ namespace SriLankaRMVCalculator
                     //total += total;
                 }
 
-                //Calculating Total Transfer Fee Based On user entered no of transfers (Only for Motor Cars)
+                //Calculating Total Transfer Fee Based On user entered no of transfers (Vehicle Type Wise)
 
                 if (cb_vehicle_category.Text == "Motor Car")
                 {
                     totalTransferFee = (Convert.ToDouble(tb_no_of_transfers.Text)) * isPerTransferCharge;
+                    total = total + totalTransferFee;
+                }
+
+                if (cb_vehicle_category.Text == "Motor Bus")
+                {
+                    totalTransferFee = (Convert.ToDouble(tb_no_of_transfers.Text)) * isPerTransferChargeMotorBus;
+                    total = total + totalTransferFee;
+                }
+
+                if (cb_vehicle_category.Text == "Dual Purpose Vehicle")
+                {
+                    totalTransferFee = (Convert.ToDouble(tb_no_of_transfers.Text)) * isPerTransferChargeDPVehicle;
+                    total = total + totalTransferFee;
+                }
+
+                if (cb_vehicle_category.Text == "Motor Lorry")
+                {
+                    totalTransferFee = (Convert.ToDouble(tb_no_of_transfers.Text)) * isPerTransferChargeMotorLorry;
+                    total = total + totalTransferFee;
+                }
+
+                if (cb_vehicle_category.Text == "Motor Tractor")
+                {
+                    totalTransferFee = (Convert.ToDouble(tb_no_of_transfers.Text)) * isPerTransferChargeMotorTractor;
+                    total = total + totalTransferFee;
+                }
+
+                if (cb_vehicle_category.Text == "Motor Three Wheel")
+                {
+                    totalTransferFee = (Convert.ToDouble(tb_no_of_transfers.Text)) * isPerTransferChargeMotorThreeWheeler;
+                    total = total + totalTransferFee;
+                }
+
+
+
+
+
+                //Calculating Whether WHT applicable for the RMV transfer
+
+                bool beforeFive = IsTransferBeforeFiveYears();
+                if (!beforeFive)
+                {
+                    if (cb_vehicle_category.Text == "Motor Car" || cb_vehicle_category.Text == "Dual Purpose Vehicle" || cb_vehicle_category.Text == "Motor Tractor")
+                    {
+                        total = total + isWHT;
+                    }
                 }
 
 
@@ -368,6 +452,40 @@ namespace SriLankaRMVCalculator
         private void dp_CR_first_reg_date_ValueChanged(object sender, EventArgs e)
         {
 
+        }
+
+        private void tb_no_of_transfers_KeyPress(object sender, KeyPressEventArgs e)
+        {
+
+            //restrict the user to enter the charcters in the text box
+            if (!char.IsControl(e.KeyChar) && !char.IsDigit(e.KeyChar) &&
+        (e.KeyChar != '.'))
+            {
+                e.Handled = true;
+            }
+
+            // only allow one decimal point
+            if ((e.KeyChar == '.') && ((sender as TextBox).Text.IndexOf('.') > -0))
+            {
+                e.Handled = true;
+            }
+        }
+
+        private void tb_no_of_prev_owners_KeyPress(object sender, KeyPressEventArgs e)
+        {
+
+            //Restric the user to enter charcters in the tex box
+            if (!char.IsControl(e.KeyChar) && !char.IsDigit(e.KeyChar) &&
+        (e.KeyChar != '.'))
+            {
+                e.Handled = true;
+            }
+
+            // only allow one decimal point
+            if ((e.KeyChar == '.') && ((sender as TextBox).Text.IndexOf('.') > -0))
+            {
+                e.Handled = true;
+            }
         }
     }
 }

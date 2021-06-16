@@ -244,6 +244,7 @@ namespace SriLankaRMVCalculator
             this.tb_no_of_transfers.Size = new System.Drawing.Size(200, 23);
             this.tb_no_of_transfers.TabIndex = 33;
             this.tb_no_of_transfers.Text = "0";
+            this.tb_no_of_transfers.KeyPress += new System.Windows.Forms.KeyPressEventHandler(this.tb_no_of_transfers_KeyPress);
             // 
             // tb_no_of_prev_owners
             // 
@@ -252,6 +253,7 @@ namespace SriLankaRMVCalculator
             this.tb_no_of_prev_owners.Size = new System.Drawing.Size(200, 23);
             this.tb_no_of_prev_owners.TabIndex = 32;
             this.tb_no_of_prev_owners.Text = "0";
+            this.tb_no_of_prev_owners.KeyPress += new System.Windows.Forms.KeyPressEventHandler(this.tb_no_of_prev_owners_KeyPress);
             // 
             // dp_CR_last_printed_date
             // 
@@ -296,6 +298,7 @@ namespace SriLankaRMVCalculator
             // 
             this.tb_vehicle_number.Location = new System.Drawing.Point(465, 185);
             this.tb_vehicle_number.Name = "tb_vehicle_number";
+            this.tb_vehicle_number.PlaceholderText = "WP CAV-4334";
             this.tb_vehicle_number.Size = new System.Drawing.Size(182, 23);
             this.tb_vehicle_number.TabIndex = 26;
             // 
@@ -399,7 +402,9 @@ namespace SriLankaRMVCalculator
             "Motor Bus",
             "Motor Three Wheel",
             "Motor Cycle",
-            "Dual Purpose Vehicle"});
+            "Dual Purpose Vehicle",
+            "Motor Lorry",
+            "Motor Tractor"});
             this.cb_vehicle_category.Location = new System.Drawing.Point(153, 185);
             this.cb_vehicle_category.Name = "cb_vehicle_category";
             this.cb_vehicle_category.Size = new System.Drawing.Size(121, 23);
