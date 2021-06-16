@@ -137,6 +137,7 @@ namespace SriLankaRMVCalculator
             this.bt_reset.TabIndex = 46;
             this.bt_reset.Text = "RESET";
             this.bt_reset.UseVisualStyleBackColor = true;
+            this.bt_reset.Click += new System.EventHandler(this.bt_reset_Click);
             // 
             // bt_generate_print
             // 
@@ -258,6 +259,7 @@ namespace SriLankaRMVCalculator
             this.dp_CR_last_printed_date.Name = "dp_CR_last_printed_date";
             this.dp_CR_last_printed_date.Size = new System.Drawing.Size(200, 23);
             this.dp_CR_last_printed_date.TabIndex = 31;
+            this.dp_CR_last_printed_date.ValueChanged += new System.EventHandler(this.dp_CR_last_printed_date_ValueChanged);
             // 
             // dp_CR_first_reg_date
             // 
@@ -265,6 +267,7 @@ namespace SriLankaRMVCalculator
             this.dp_CR_first_reg_date.Name = "dp_CR_first_reg_date";
             this.dp_CR_first_reg_date.Size = new System.Drawing.Size(200, 23);
             this.dp_CR_first_reg_date.TabIndex = 30;
+            this.dp_CR_first_reg_date.ValueChanged += new System.EventHandler(this.dp_CR_first_reg_date_ValueChanged);
             // 
             // panel3
             // 
@@ -393,9 +396,10 @@ namespace SriLankaRMVCalculator
             this.cb_vehicle_category.Items.AddRange(new object[] {
             "Motor Car",
             "Motor Coach",
-            "Motor Lorry",
+            "Motor Bus",
             "Motor Three Wheel",
-            "Motor Cycle"});
+            "Motor Cycle",
+            "Dual Purpose Vehicle"});
             this.cb_vehicle_category.Location = new System.Drawing.Point(153, 185);
             this.cb_vehicle_category.Name = "cb_vehicle_category";
             this.cb_vehicle_category.Size = new System.Drawing.Size(121, 23);
@@ -461,7 +465,7 @@ namespace SriLankaRMVCalculator
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(7F, 15F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.BackColor = System.Drawing.Color.White;
+            this.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(192)))), ((int)(((byte)(192)))), ((int)(((byte)(255)))));
             this.ClientSize = new System.Drawing.Size(1341, 725);
             this.Controls.Add(this.gb_checkbox_charges);
             this.Controls.Add(this.lb_charge);
@@ -497,6 +501,7 @@ namespace SriLankaRMVCalculator
             this.Controls.Add(this.panel1);
             this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.None;
             this.Name = "RMVMain";
+            this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
             this.Text = "RMVMain";
             this.Load += new System.EventHandler(this.RMVMain_Load);
             this.panel1.ResumeLayout(false);

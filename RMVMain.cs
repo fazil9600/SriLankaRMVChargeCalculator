@@ -62,9 +62,48 @@ namespace SriLankaRMVCalculator
                 return false;
             }
         }
-
-            private void RMVMain_Load(object sender, EventArgs e)
+        public class Utilities
         {
+
+
+            void ResetAllControls(Control form)
+            {
+                foreach (Control control in form.Controls)
+                {
+                    if (control is TextBox)
+                    {
+                        TextBox textBox = (TextBox)control;
+                        textBox.Text = null;
+                    }
+
+                    if (control is ComboBox)
+                    {
+                        ComboBox comboBox = (ComboBox)control;
+                        if (comboBox.Items.Count > 0)
+                            comboBox.SelectedIndex = 0;
+                    }
+
+                    if (control is CheckBox)
+                    {
+                        CheckBox checkBox = (CheckBox)control;
+                        checkBox.Checked = false;
+                    }
+
+                    if (control is ListBox)
+                    {
+                        ListBox listBox = (ListBox)control;
+                        listBox.ClearSelected();
+                    }
+                }
+            }
+        }
+
+
+        private void RMVMain_Load(object sender, EventArgs e)
+        {
+            dp_CR_last_printed_date.MaxDate = DateTime.Now;
+            dp_CR_first_reg_date.MaxDate = DateTime.Now;
+
 
         }
 
@@ -100,7 +139,21 @@ namespace SriLankaRMVCalculator
 
         private void bt_exit_Click(object sender, EventArgs e)
         {
-            Application.Exit();
+            try
+            {
+                DialogResult iExit;
+                iExit = MessageBox.Show("Are you sure", "RMV CHARGE CALCULATOR",
+                                        MessageBoxButtons.YesNo, MessageBoxIcon.Information);
+                if (iExit == DialogResult.Yes)
+                {
+                    Application.Exit();
+                }
+
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show(ex.Message, "RMV CHARGE CALCULATOR", MessageBoxButtons.OK, MessageBoxIcon.Information);
+            }
         }
 
         double isAbsoulteOwnerFee = 2500.00;
@@ -108,10 +161,24 @@ namespace SriLankaRMVCalculator
         double isMortgageFee = 450.00;
         double isMortgageFeeDeletion = 550.00;
         double isOneDayService = 1400.00;
-        double isDuplicatedCR = 15000.00;
         double isProviceChange = 3300.00;
 
-        double sixMonthNotCompletedFee = 7000.00;
+        double sixMonthNotCompletedFeeMotorCar = 7000.00;
+        double sixMonthNotCompletedFeeMotorCoach = 6000.00;
+        double sixMonthNotCompletedFeeMotorBus = 6000.00;
+        double sixMonthNotCompletedFeeDPVehicle = 6000.00;
+
+        double isDuplicatedCR = 15000.00;
+        double isDuplicatedCRDualPurpose = 10000.00;
+        double isDuplicatedCRMotorCoach = 10000.00;
+        double isDuplicatedCRMotorBus = 10000.00;
+
+
+
+
+
+
+
         double transferSaleTax = 3000.00;
 
         double isPerTransferCharge = 3750.00;
@@ -121,14 +188,14 @@ namespace SriLankaRMVCalculator
 
 
 
-        
+
 
 
 
 
         private void bt_calculate_RMV_Click(object sender, EventArgs e)
         {
-            
+
             double total = 0;
             double totalTransferFee = 0;
 
@@ -159,7 +226,14 @@ namespace SriLankaRMVCalculator
                             }
                             else if (((CheckBox)control).Name == "chb_is_dup_CR")
                             {
-                                total = total + isDuplicatedCR;
+                                if (cb_vehicle_category.Text == "Motor Car")
+                                {
+                                    total = total + isDuplicatedCR;
+                                }
+                                else if (cb_vehicle_category.Text == "Motor Coach")
+                                {
+                                    total = total + isDuplicatedCRMotorCoach;
+                                }
                             }
                             else if (((CheckBox)control).Name == "chb_is_one_day_service")
                             {
@@ -182,10 +256,30 @@ namespace SriLankaRMVCalculator
                 bool valueadded = IsSixMonthCompleted();
                 if (!valueadded)
                 {
-                    total = total + sixMonthNotCompletedFee;
+                    if (cb_vehicle_category.Text == "Motor Car")
+                    {
+                        total = total + sixMonthNotCompletedFeeMotorCar;
+                    }
+                    else if (cb_vehicle_category.Text == "Motor Coach")
+                    {
+                        total = total + sixMonthNotCompletedFeeMotorCoach;
+                    }
+                    else if (cb_vehicle_category.Text == "Motor Bus")
+                    {
+                        total = total + sixMonthNotCompletedFeeMotorBus;
+                    }
+                    else if (cb_vehicle_category.Text == "Dual Purpose Vehicle")
+                    {
+                        total = total + sixMonthNotCompletedFeeDPVehicle;
+                    }
+
+                }
+                else
+                {
+                    //total += total;
                 }
 
-                //Calculating Total Transfer Fee Based On user entered no of transfers
+                //Calculating Total Transfer Fee Based On user entered no of transfers (Only for Motor Cars)
 
                 if (cb_vehicle_category.Text == "Motor Car")
                 {
@@ -198,18 +292,22 @@ namespace SriLankaRMVCalculator
                 bool sevenyears = IsSevenYearsCompleted();
                 if (!sevenyears)
                 {
-                     if (cb_vehicle_category.Text == "Motor Car" && tb_no_of_prev_owners.Text == "0")
+                    if (cb_vehicle_category.Text == "Motor Car" && tb_no_of_prev_owners.Text == "0")
                     {
                         total = total + transferSaleTax;
                     }
                 }
+                else
+                {
+                    //total += total;
+                }
 
                 //Final RMV Charge
-                total = total + sixMonthNotCompletedFee + transferSaleTax;
+
                 lb_charge.Text = total.ToString();
 
             }
-            catch(Exception ex)
+            catch (Exception ex)
             {
                 MessageBox.Show(ex.Message);
             }
@@ -221,6 +319,53 @@ namespace SriLankaRMVCalculator
         }
 
         private void IsAbsoluteOwnerShipChanged(object sender, EventArgs e)
+        {
+
+        }
+      
+
+
+
+        private void bt_reset_Click(object sender, EventArgs e)
+        {
+            //foreach (var control in this.gb_checkbox_charges.Controls)
+            //{
+            //    if (control is CheckBox)
+            //    {
+            //        CheckBox checkBox = (CheckBox)control;
+            //        checkBox.Checked = false;
+            //        lb_charge.Text = "";
+            //    }
+            //}
+
+            try
+            {
+                DialogResult iExit;
+                iExit = MessageBox.Show("This cannot be undone", "This Action Cannot Undone",
+                                        MessageBoxButtons.YesNo, MessageBoxIcon.Information);
+                if (iExit == DialogResult.Yes)
+                {
+                    RMVMain NewForm = new RMVMain();
+                    NewForm.Show();
+                    this.Dispose(false);
+                }
+
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show(ex.Message, "RMV CHARGE CALCULATOR", MessageBoxButtons.OK, MessageBoxIcon.Information);
+            }
+
+            
+
+        }
+
+        private void dp_CR_last_printed_date_ValueChanged(object sender, EventArgs e)
+        {
+
+        }
+
+        private void dp_CR_first_reg_date_ValueChanged(object sender, EventArgs e)
         {
 
         }
