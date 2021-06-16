@@ -134,13 +134,15 @@ namespace SriLankaRMVCalculator
             dp_CR_last_printed_date.MaxDate = DateTime.Now;
             dp_CR_first_reg_date.MaxDate = DateTime.Now;
 
-            //setting default value as  for no of transfers
+            //Handling minum date to select (8 years to backdated from today)
+            dp_CR_first_reg_date.MinDate = DateTime.Today.AddYears(-8);
+            dp_CR_last_printed_date.MinDate = DateTime.Today.AddYears(-8);
 
         }
 
         private void button1_Click(object sender, EventArgs e)
         {
-            //Checking whether 6 months completed from last printed date
+            //Checking whether 6 months completed from last printed date and output to label
             bool resultMonths = IsSixMonthCompleted();
 
             if (resultMonths)
@@ -153,7 +155,7 @@ namespace SriLankaRMVCalculator
                 lb_sixmonth.Text = "6 Months Not Completed From Last Transfer";
             }
 
-            //checking whether 7 years completed from CR first registered date
+            //checking whether 7 years completed from CR first registered date and output to label
 
             bool resultYears = IsSevenYearsCompleted();
 
@@ -362,7 +364,7 @@ namespace SriLankaRMVCalculator
                 //Calculating Whether WHT applicable for the RMV transfer
 
                 bool beforeFive = IsTransferBeforeFiveYears();
-                if (!beforeFive)
+                if (!beforeFive && tb_no_of_transfers.Text == "1")
                 {
                     if (cb_vehicle_category.Text == "Motor Car" || cb_vehicle_category.Text == "Dual Purpose Vehicle" || cb_vehicle_category.Text == "Motor Tractor")
                     {
@@ -386,7 +388,7 @@ namespace SriLankaRMVCalculator
                     //total += total;
                 }
 
-                //Final RMV Charge
+                //Final RMV Charge to the label
 
                 lb_charge.Text = total.ToString();
 

@@ -14,4 +14,3 @@ C:\Users\fazil\source\repos\SriLankaRMVCalculator\obj\Debug\netcoreapp3.1\SriLan
 C:\Users\fazil\source\repos\SriLankaRMVCalculator\obj\Debug\netcoreapp3.1\SriLankaRMVCalculator.Properties.Resources.resources
 C:\Users\fazil\source\repos\SriLankaRMVCalculator\obj\Debug\netcoreapp3.1\SriLankaRMVCalculator.RMVMain.resources
 C:\Users\fazil\source\repos\SriLankaRMVCalculator\obj\Debug\netcoreapp3.1\SriLankaRMVCalculator.LoginCover.resources
-C:\Users\fazil\source\repos\SriLankaRMVCalculator\obj\Debug\netcoreapp3.1\SriLankaRMVCalculator.csprojAssemblyReference.cache

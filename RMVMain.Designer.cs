@@ -29,7 +29,7 @@ namespace SriLankaRMVCalculator
         /// </summary>
         private void InitializeComponent()
         {
-            this.button1 = new System.Windows.Forms.Button();
+            this.bt_check = new System.Windows.Forms.Button();
             this.panel4 = new System.Windows.Forms.Panel();
             this.lb_years = new System.Windows.Forms.Label();
             this.lb_sixmonth = new System.Windows.Forms.Label();
@@ -73,15 +73,15 @@ namespace SriLankaRMVCalculator
             this.gb_checkbox_charges.SuspendLayout();
             this.SuspendLayout();
             // 
-            // button1
+            // bt_check
             // 
-            this.button1.Location = new System.Drawing.Point(7, 390);
-            this.button1.Name = "button1";
-            this.button1.Size = new System.Drawing.Size(75, 23);
-            this.button1.TabIndex = 50;
-            this.button1.Text = "Process";
-            this.button1.UseVisualStyleBackColor = true;
-            this.button1.Click += new System.EventHandler(this.button1_Click);
+            this.bt_check.Location = new System.Drawing.Point(12, 390);
+            this.bt_check.Name = "bt_check";
+            this.bt_check.Size = new System.Drawing.Size(75, 23);
+            this.bt_check.TabIndex = 50;
+            this.bt_check.Text = "Check";
+            this.bt_check.UseVisualStyleBackColor = true;
+            this.bt_check.Click += new System.EventHandler(this.button1_Click);
             // 
             // panel4
             // 
@@ -475,7 +475,7 @@ namespace SriLankaRMVCalculator
             this.Controls.Add(this.gb_checkbox_charges);
             this.Controls.Add(this.lb_charge);
             this.Controls.Add(this.label10);
-            this.Controls.Add(this.button1);
+            this.Controls.Add(this.bt_check);
             this.Controls.Add(this.panel4);
             this.Controls.Add(this.lb_years);
             this.Controls.Add(this.lb_sixmonth);
@@ -520,7 +520,7 @@ namespace SriLankaRMVCalculator
 
         #endregion
 
-        private System.Windows.Forms.Button button1;
+        private System.Windows.Forms.Button bt_check;
         private System.Windows.Forms.Panel panel4;
         private System.Windows.Forms.Label lb_years;
         private System.Windows.Forms.Label lb_sixmonth;
