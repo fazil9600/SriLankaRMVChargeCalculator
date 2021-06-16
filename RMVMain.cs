@@ -103,16 +103,16 @@ namespace SriLankaRMVCalculator
             Application.Exit();
         }
 
-        double isAbsoulteOwnerFee = 3800.00;
-        double isAbsoulteOwnerDeletion = 4500.00;
-        double isMortgageFee = 1800.00;
-        double isMortgageFeeDeletion = 800.00;
-        double isOneDayService = 3800.00;
-        double isDuplicatedCR = 3800.00;
-        double isProviceChange = 3800.00;
+        double isAbsoulteOwnerFee = 2500.00;
+        double isAbsoulteOwnerDeletion = 1300.00;
+        double isMortgageFee = 450.00;
+        double isMortgageFeeDeletion = 550.00;
+        double isOneDayService = 1400.00;
+        double isDuplicatedCR = 15000.00;
+        double isProviceChange = 3300.00;
 
-        double sixMonthNotCompletedFee = 6000.00;
-        double transferSaleTax = 7000.00;
+        double sixMonthNotCompletedFee = 7000.00;
+        double transferSaleTax = 3000.00;
 
         double isPerTransferCharge = 3750.00;
         double isWHT = 1000.00;
@@ -128,27 +128,10 @@ namespace SriLankaRMVCalculator
 
         private void bt_calculate_RMV_Click(object sender, EventArgs e)
         {
-            //if (chb_is_absolute_ownership.Checked == true)
-            //{
-            //    totalRMV += isAbsoulteOwnerFee;
-            //}
-            //else
-            //{
-            //    totalRMV -= isAbsoulteOwnerFee;
-            //}
-
-            //if (totalRMV >= 0)
-            //{
-            //    lb_charge.Text = totalRMV.ToString();
-            //}
-            //else
-            //{
-            //    MessageBox.Show("Invalid RMV");
-            //}
-
+            
             double total = 0;
             double totalTransferFee = 0;
-            double transferSaleTax = 0 ;
+
             try
             {
 
@@ -203,23 +186,26 @@ namespace SriLankaRMVCalculator
                 }
 
                 //Calculating Total Transfer Fee Based On user entered no of transfers
-                totalTransferFee = (Convert.ToDouble(tb_no_of_transfers.Text)) * isPerTransferCharge;
+
+                if (cb_vehicle_category.Text == "Motor Car")
+                {
+                    totalTransferFee = (Convert.ToDouble(tb_no_of_transfers.Text)) * isPerTransferCharge;
+                }
 
 
                 //Calculting Transfer Sale Tax Only For Motor Car Category
-                //bool sevenyears = IsSevenYearsCompleted();
-                //if (!sevenyears)
-                //{
-                //    if (cb_vehicle_category.SelectedValue.ToString() == "Motor Car")
-                //    {
-                //        total = total + transferSaleTax;
-                //    }
-                //}
 
-
+                bool sevenyears = IsSevenYearsCompleted();
+                if (!sevenyears)
+                {
+                     if (cb_vehicle_category.Text == "Motor Car" && tb_no_of_prev_owners.Text == "0")
+                    {
+                        total = total + transferSaleTax;
+                    }
+                }
 
                 //Final RMV Charge
-                total = total + sixMonthNotCompletedFee + totalTransferFee;
+                total = total + sixMonthNotCompletedFee + transferSaleTax;
                 lb_charge.Text = total.ToString();
 
             }
